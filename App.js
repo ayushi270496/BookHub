@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import React, {useState} from 'react';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import SearchBar from './SRC/Component/SearchBar';
-import { fetchBooks } from './SRC/Component/BookService';
+import {fetchBooks} from './SRC/Component/BookService';
 import BookList from './SRC/Component/BookList';
 
 const App = () => {
@@ -25,14 +25,12 @@ const App = () => {
     <LinearGradient
       colors={['#e8c1e8', '#1dfdd1', '#b645fc']}
       style={styles.container}>
-      <View style={styles.innerContainer}>
-        <SearchBar setQuery={setQuery} query={query} onSearch={searchBooks} />
-        {loading ? (
-          <ActivityIndicator size="large" color="white" />
-        ) : (
-          <BookList books={books} />
-        )}
-      </View>
+      <SearchBar setQuery={setQuery} query={query} onSearch={searchBooks} />
+      {loading ? (
+        <ActivityIndicator size="large" color="white" />
+      ) : (
+        <BookList books={books} />
+      )}
     </LinearGradient>
   );
 };
@@ -41,13 +39,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-  },
-  innerContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '80%', // Adjust width as needed
   },
 });
 
