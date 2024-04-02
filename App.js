@@ -1,14 +1,20 @@
-import React, {useState} from 'react';
-import {ActivityIndicator, StyleSheet, View} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import SearchBar from './SRC/Component/SearchBar';
-import {fetchBooks} from './SRC/Component/BookService';
+import { fetchBooks } from './SRC/Component/BookService';
 import BookList from './SRC/Component/BookList';
 
 const App = () => {
   const [query, setQuery] = useState('');
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (query.trim() === '') {
+      reloadPage();
+    }
+  }, [query]);
 
   const searchBooks = async () => {
     if (query.trim() === '') return;
@@ -19,6 +25,10 @@ const App = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const reloadPage = () => {
+    setBooks([]);
   };
 
   return (
@@ -38,7 +48,7 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
 });
 
