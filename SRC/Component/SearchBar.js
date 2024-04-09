@@ -5,13 +5,16 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Dimensions,
 } from 'react-native';
 import React from 'react';
 
-const SearchBar = ({query, setQuery, onSearch}) => {
+const windowHeight = Dimensions.get('window').height;
+
+const SearchBar = ({ query, setQuery, onSearch }) => {
   const searchIcon = require('./Assets/ioupe.png');
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { marginTop: windowHeight * 0.1 }]}>
       <View style={styles.searchtab}>
         <TextInput
           placeholder="Search here"

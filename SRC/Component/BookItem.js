@@ -1,12 +1,28 @@
-import {StyleSheet, Text, View} from 'react-native';
+import { Image, StyleSheet, Text, View, Dimensions } from 'react-native';
 import React from 'react';
-//first_publish_year
-const BookItem = ({item}) => {
+
+const windowWidth = Dimensions.get('window').width;
+
+const BookItem = ({ item }) => {
+  const bookCoverUnavailable = require('./Assets/notavailavleimage.png');
   return (
     <View style={styles.item}>
-      <Text style={{fontSize: 20}}>{item.title}</Text>
-      <Text style={{color: 'blue', fontSize: 20}}>{item.author_name}</Text>
-      <Text style={{fontSize: 20}}>{item.first_publish_year}</Text>
+      {item.cover_i ? (
+        <Image
+          source={{ uri: `https://covers.openlibrary.org/b/id/${item.cover_i}-M.jpg` }}
+          style={styles.coverImage}
+        />
+      ) : (
+        <Image
+          source={bookCoverUnavailable}
+          style={styles.coverImage}
+        />
+      )}
+      <View style={styles.textContainer}>
+        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.author}>{item.author_name?.join(', ')}</Text>
+        <Text style={styles.publishYear}>First Publish Year: {item.first_publish_year}</Text>
+      </View>
     </View>
   );
 };
@@ -15,10 +31,31 @@ export default BookItem;
 
 const styles = StyleSheet.create({
   item: {
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: 'white',
     margin: 10,
     padding: 10,
-    height: 100,
-    width: '80%',
+    width: windowWidth * 0.8, // 80% of window width
+  },
+  coverImage: {
+    width: '30%', // 30% of parent width
+    aspectRatio: 3 / 4, // Aspect ratio for standard book cover dimensions
+    resizeMode: 'cover',
+    marginRight: 10,
+  },
+  textContainer: {
+    flex: 1,
+  },
+  title: {
+    fontSize: 20,
+  },
+  author: {
+    color: 'blue',
+    fontSize: 18,
+    marginBottom: 5,
+  },
+  publishYear: {
+    fontSize: 16,
   },
 });
